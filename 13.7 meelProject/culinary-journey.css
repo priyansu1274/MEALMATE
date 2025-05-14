@@ -1,0 +1,214 @@
+/* Culinary Journey Form Styling */
+.culinary-journey-section {
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF6B6B 100%);
+    padding: 50px 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.journey-form-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    padding: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.journey-form-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+}
+
+.journey-form-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.progress-step {
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.progress-step.active {
+    background-color: #FF6B6B;
+    color: white;
+    box-shadow: 0 5px 15px rgba(253, 160, 133, 0.4);
+}
+
+.journey-form-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #e0e0e0;
+    transform: translateY(-50%);
+    z-index: 0;
+}
+
+.journey-step-icon {
+    color: #4ECDC4;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #4ECDC4;
+}
+
+.form-control, .form-check-input {
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-check-input:focus {
+    border-color: #FF6B6B;
+    box-shadow: 0 0 0 0.2rem rgba(253, 160, 133, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #FF6B6B;
+    border-color: #FF6B6B;
+}
+
+.btn-primary, .whatsapp-submit-btn {
+    background-color: #FF6B6B;
+    border-color: #FF6B6B;
+    border-radius: 25px;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover, .whatsapp-submit-btn:hover {
+    background-color:#FF6B6B;
+    border-color:#FF6B6B;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.whatsapp-submit-btn {
+    background-color: #25D366;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.whatsapp-submit-btn i {
+    font-size: 24px;
+}
+
+.payment-app-icon {
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.payment-app-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.payment-app-icon img {
+    max-height: 50px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.alert-info {
+    background-color: rgba(253, 160, 133, 0.1);
+    border-color: #FF6B6B;
+    color: #4ECDC4;
+    border-radius: 15px;
+}
+
+.provider-card {
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.provider-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.provider-card .card-image {
+    transition: filter 0.3s ease-in-out;
+}
+
+.provider-card:hover .card-image {
+    filter: brightness(110%) contrast(110%);
+}
+
+.provider-details {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-in-out;
+}
+
+.provider-card:hover .provider-details {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.provider-card .plan-options {
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+.provider-card .menu-options {
+    transition: background-color 0.3s ease;
+}
+
+.provider-card .menu-options:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .journey-form-container {
+        padding: 20px;
+    }
+    
+    .progress-step {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+}

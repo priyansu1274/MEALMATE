@@ -1,0 +1,2901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealMate - Meal Subscription Marketplace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="culinary-journey.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --background-color: #F7FFF7;
+            --text-color: #2C3E50;
+            --accent-color: #A8DADC;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .provider-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .provider-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .provider-card img {
+            height: 450px;
+            object-fit: cover;
+            transition: all 0.6s ease;
+            filter: brightness(0.9);
+            border-radius: 20px;
+        }
+
+        .provider-card:hover img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .loyalty-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .specialty-dish {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-subscribe {
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-subscribe:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .filter-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .project-section {
+            padding: 50px 0;
+        }
+
+        .project-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .project-details {
+            padding: 20px;
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .project-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .project-technologies {
+            margin-bottom: 20px;
+        }
+
+        .project-links {
+            margin-top: auto;
+        }
+
+        /* Sexy Hero Section Styles */
+        .hero-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: #6C757D;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .hero-cta-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-cta-primary {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 15px 30px rgba(255,107,107,0.4);
+        }
+
+        .hero-cta-primary:hover {
+            transform: translateY(-7px);
+            background-color: #4ECDC4;
+            box-shadow: 0 20px 40px rgba(78,205,196,0.5);
+        }
+
+        .hero-cta-secondary {
+            color: #2C3E50;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid #2C3E50;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta-secondary:hover {
+            background-color: #2C3E50;
+            color: white;
+        }
+
+        .hero-image-container {
+            flex: 1;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            object-fit: cover;
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(78,205,196,0.1));
+            border-radius: 30px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-image-container:hover .hero-image {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.03);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .hero-image-container:hover .hero-image-overlay {
+            opacity: 1;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .hero-badge {
+            background-color: rgba(255,107,107,0.1);
+            color: #FF6B6B;
+            padding: 10px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .hero-badge:hover {
+            background-color: #FF6B6B;
+            color: white;
+        }
+
+        .hero-badge-icon {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .hero-cta-buttons {
+                justify-content: center;
+            }
+
+            .hero-badges {
+                justify-content: center;
+            }
+        }
+
+        /* Provider Modal Styles */
+        .provider-modal .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .provider-modal .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .provider-modal .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .provider-modal .modal-body img {
+            max-width: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .provider-modal .subscription-details {
+            width: 100%;
+        }
+
+        .provider-modal .subscription-plan {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Learn More Button Animation */
+        .learn-more-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .learn-more-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .learn-more-btn:hover::before {
+            left: 100%;
+        }
+
+        .learn-more-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .provider-description {
+            text-align: justify;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .locality-badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .menu-customization {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .menu-item-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-item-controls input {
+            width: 60px;
+            margin: 0 10px;
+            text-align: center;
+        }
+
+        .dietary-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dietary-option {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Menu Section Styles */
+        .menu-section {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .menu-category-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .menu-category-title h2 {
+            display: inline-block;
+            padding: 0 20px;
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-category-title::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #ddd;
+            z-index: 0;
+        }
+
+        .menu-item-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-item-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-item-details {
+            padding: 20px;
+        }
+
+        .menu-item-details h4 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .menu-item-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+
+        .menu-item-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .menu-nutrition-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        /* Menu PDF Download Styles */
+        .menu-pdf-download {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .menu-pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-pdf-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .menu-pdf-btn i {
+            margin-right: 10px;
+        }
+
+        /* Delivery Address Styles */
+        .delivery-address-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            margin-top: 30px;
+        }
+
+        .delivery-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .delivery-form input,
+        .delivery-form textarea {
+            margin-bottom: 15px;
+        }
+
+        /* Review Section Styles */
+        .review-section {
+            background-color: #ffffff;
+            padding: 50px 0;
+        }
+
+        .review-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .review-card .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .review-card .user-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .review-card .review-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        /* WhatsApp Order Button */
+        .whatsapp-order-btn {
+            background-color: #25D366;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-order-btn:hover {
+            background-color: #128C7E;
+            color: white;
+        }
+
+        .whatsapp-order-btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Combined Journey Section Styles */
+        .culinary-journey-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .journey-form-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+
+        .journey-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .journey-step:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-5px);
+        }
+
+        .journey-step-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .journey-form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .progress-step.active {
+            background-color: var(--primary-color);
+        }
+
+        .whatsapp-submit-btn {
+            background-color: #25D366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-submit-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .whatsapp-submit-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .payment-app-icon {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .payment-app-icon:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+
+        .payment-app-icon img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* Meal Provider Section Styles */
+        .meal-providers-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 60px 0;
+            perspective: 1000px;
+        }
+
+        .provider-card-wrapper {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .provider-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.07);
+            transition: all 0.6s ease;
+            transform-style: preserve-3d;
+            background: white;
+            cursor: pointer;
+        }
+
+        .provider-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .provider-card:hover::before {
+            opacity: 1;
+        }
+
+        .provider-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            backface-visibility: hidden;
+        }
+
+        .provider-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.8);
+        }
+
+        .provider-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            color: white;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+            backface-visibility: hidden;
+        }
+
+        .provider-card:hover .provider-details {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .provider-features {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .provider-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgba(255,255,255,0.7);
+            transition: color 0.3s ease;
+        }
+
+        .provider-card:hover .provider-feature {
+            color: white;
+        }
+
+        .provider-feature i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .provider-card:hover .provider-feature i {
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Hover 3D Effect */
+        .provider-card-wrapper:hover {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Animated Badge */
+        .provider-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #FF6B6B;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: badge-pulse 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .provider-card img {
+                height: 250px;
+            }
+
+            .provider-features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .provider-feature {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Enhanced Image and Modal Styles */
+        .modal-provider-details {
+            display: flex;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f5 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .modal-provider-image {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-provider-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .modal-provider-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+
+        .modal-provider-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+        }
+
+        .modal-provider-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f1f3f5;
+            padding-bottom: 20px;
+        }
+
+        .modal-provider-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .modal-provider-header p {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+
+        .modal-subscription-plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .subscription-plan-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .subscription-plan-card:hover {
+            transform: translateY(-10px);
+            border-color: #3498db;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .subscription-plan-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subscription-plan-card .price {
+            font-size: 1.5rem;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .modal-menu-options {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .menu-option-card {
+            flex: 1;
+            background: #f1f3f5;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .menu-option-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .menu-option-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .menu-option-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .modal-provider-details {
+                flex-direction: column;
+            }
+
+            .modal-subscription-plans {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loyalty Program Styles */
+        .loyalty-program-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loyalty-program-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loyalty-card-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .loyalty-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .loyalty-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,107,107,0.1), transparent);
+            transform: rotate(-45deg);
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .loyalty-card:hover::before {
+            opacity: 1;
+        }
+
+        .loyalty-card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: #FF6B6B;
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+
+        .loyalty-card:hover .loyalty-card-icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .loyalty-card h4 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .loyalty-card.current {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border: 2px solid #FF6B6B;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F1F3F5 100%);
+        }
+
+        .loyalty-card-stamp {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #28a745;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .loyalty-card.completed .loyalty-card-stamp {
+            opacity: 1;
+        }
+
+        .loyalty-program-details {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .loyalty-download-btn {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .loyalty-download-btn:hover {
+            background-color: #4ECDC4;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .loyalty-download-btn i {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .loyalty-card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .loyalty-card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Sexy Footer Styles */
+        .footer-section {
+            background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            width: 120px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .footer-brand {
+            flex: 0 0 30%;
+        }
+
+        .footer-brand-description {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            color: #FF6B6B;
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .footer-links-group {
+            flex: 0 0 15%;
+        }
+
+        .footer-links-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #FF6B6B;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #4ECDC4;
+            transform: translateX(5px);
+        }
+
+        .footer-contact {
+            flex: 0 0 25%;
+        }
+
+        .footer-contact-info {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-contact-icon {
+            color: #FF6B6B;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-newsletter {
+            background-color: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .footer-newsletter-input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+
+        .footer-newsletter-btn {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-newsletter-btn:hover {
+            background-color: #4ECDC4;
+        }
+
+        @media (max-width: 992px) {
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-brand, 
+            .footer-links-group, 
+            .footer-contact {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+
+            .footer-social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Enhanced Navigation Styles */
+        .navbar {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid #FF6B6B;
+        }
+
+        .navbar-brand-logo:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #2C3E50;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 10px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #2C3E50;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 25px;
+        }
+
+        .navbar-nav .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: #FF6B6B;
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #FF6B6B;
+            background-color: rgba(255,107,107,0.05);
+        }
+
+        .navbar-nav .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: #FF6B6B;
+            font-weight: 700;
+        }
+
+        .navbar-nav .nav-link.active::before {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: #2C3E50;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(44, 62, 80, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        @media (max-width: 992px) {
+            .navbar-brand-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .navbar-nav .nav-item {
+                text-align: center;
+                margin: 10px 0;
+            }
+        }
+
+        /* About Us Section Styles */
+        .about-us-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-us-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-us-text {
+            flex: 1;
+        }
+
+        .about-us-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-us-description {
+            color: #6C757D;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .team-values {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: #FF6B6B;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .value-item:hover .value-icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .value-title {
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 10px;
+        }
+
+        .value-description {
+            color: #6C757D;
+            font-size: 0.9rem;
+        }
+
+        .about-us-image-container {
+            flex: 1;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .about-us-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            object-fit: cover;
+        }
+
+        .about-us-image:hover {
+            transform: rotateY(-5deg) rotateX(5deg) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 992px) {
+            .about-us-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .team-values {
+                grid-template-columns: 1fr;
+            }
+
+            .about-us-image-container {
+                margin-top: 30px;
+            }
+        }
+
+        /* Contact Us Section Styles */
+        .contact-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #2C3E50;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-description {
+            color: #6C757D;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #2C3E50;
+        }
+
+        .contact-detail-icon {
+            color: #FF6B6B;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-form {
+            flex: 1;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-form:hover {
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+        }
+
+        .contact-form-group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #E9ECEF;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form-control:focus {
+            border-color: #FF6B6B;
+            box-shadow: 0 0 0 0.2rem rgba(255,107,107,0.25);
+        }
+
+        .contact-form-submit {
+            background-color: #FF6B6B;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .contact-form-submit:hover {
+            background-color: #4ECDC4;
+            transform: translateY(-5px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            color: #6C757D;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #FF6B6B;
+        }
+
+        @media (max-width: 992px) {
+            .contact-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-details {
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .contact-detail {
+                justify-content: center;
+            }
+        }
+
+        /* How It Works Section Styles */
+        .how-it-works-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-it-works-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #2C3E50;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .how-it-works-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 30px;
+        }
+
+        .how-it-works-step {
+            flex: 1;
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-it-works-step:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.15);
+        }
+
+        .how-it-works-step-icon {
+            font-size: 4rem;
+            color: #FF6B6B;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .how-it-works-step:hover .how-it-works-step-icon {
+            color: #4ECDC4;
+        }
+
+        .how-it-works-step-number {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(255,107,107,0.1);
+            z-index: 1;
+        }
+
+        .how-it-works-step-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 15px;
+        }
+
+        .how-it-works-step-description {
+            color: #6C757D;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 992px) {
+            .how-it-works-steps {
+                flex-direction: column;
+            }
+
+            .how-it-works-step {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <img src="logo.png" alt="MealMate Logo" class="navbar-brand-logo">
+                <span class="navbar-brand-text">MealMate</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#meal-providers">Meal Providers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#loyalty-program">Loyalty Program</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about-us">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row hero-content">
+                <div class="col-lg-6 hero-text">
+                    <h1 class="hero-title">Delicious Meals, Delivered Fresh</h1>
+                    <p class="hero-subtitle">
+                        Experience culinary magic with MealMate. Discover gourmet meals crafted by local chefs, 
+                        delivered straight to your doorstep. Healthy, convenient, and absolutely delicious!
+                    </p>
+                    <div class="hero-cta-buttons">
+                        <a href="#meal-providers" class="hero-cta-primary">
+                            Explore Meals
+                            <i class="fas fa-utensils ms-2"></i>
+                        </a>
+                        <a href="#how-it-works" class="hero-cta-secondary">
+                            How It Works
+                        </a>
+                    </div>
+                    <div class="hero-badges">
+                        <div class="hero-badge">
+                            <i class="fas fa-star hero-badge-icon"></i>
+                            100+ Local Chefs
+                        </div>
+                        <div class="hero-badge">
+                            <i class="fas fa-truck hero-badge-icon"></i>
+                            Free Delivery
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image-container text-center">
+                    <div class="hero-image-overlay"></div>
+                    <img src="logo2.jpg" alt="Delicious Meal Spread" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meal Providers Section -->
+    <section id="meal-providers" class="meal-providers-section">
+        <div class="container">
+            <h2 class="text-center mb-5 display-6 fw-bold">Discover Our Meal Providers</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="healthybites">
+                            <div class="provider-badge">Top Choice</div>
+                            <img src="1.png" alt="HealthyBites" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Hotel Gayatri</h4>
+                                <p class="mb-3">Crafting nutritious meals that balance flavor and wellness.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Organic</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Balanced</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Fresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="nutrichef">
+                            <div class="provider-badge">Trending</div>
+                            <img src="2.png" alt="NutriChef" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Kayasari Lunchbox</h4>
+                                <p class="mb-3">Gourmet meals designed by professional nutritionists.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Optimized</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-user-md"></i>
+                                        <span>Nutritionist</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-star"></i>
+                                        <span>Premium</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="3.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Kabita's Kitchen</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="4.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Homely Khana</h4>
+                                <p class="mb-3">Crafting nutritious meals that balance flavor and wellness.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Organic</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Balanced</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Fresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="5.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Lunch Square</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="6.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Hashtag Thali</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="7.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">DH CLOUD KITCHEN</h4>
+                                <p class="mb-3">Crafting nutritious meals that balance flavor and wellness.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Organic</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Balanced</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Fresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="8.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Happy Eats</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="9.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">MAA'S Magic Meals</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="10.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">MOM'S Kitchen</h4>
+                                <p class="mb-3">Crafting nutritious meals that balance flavor and wellness.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Organic</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Balanced</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Fresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="11.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Matrix Kitchen</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="12.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">SR tiffin Service</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="13.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Tray Trap Foods</h4>
+                                <p class="mb-3">Crafting nutritious meals that balance flavor and wellness.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-leaf"></i>
+                                        <span>Organic</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Balanced</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Fresh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="14.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Fresh Box Online</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="provider-card-wrapper">
+                        <div class="provider-card" data-provider="fitmeal">
+                            <div class="provider-badge">New</div>
+                            <img src="15.png" alt="FitMeal" class="img-fluid">
+                            <div class="provider-details">
+                                <h4 class="mb-3">Enjoe Foods</h4>
+                                <p class="mb-3">Tailored meals for fitness enthusiasts and active lifestyles.</p>
+                                <div class="provider-features">
+                                    <div class="provider-feature">
+                                        <i class="fas fa-dumbbell"></i>
+                                        <span>Fitness</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-running"></i>
+                                        <span>Performance</span>
+                                    </div>
+                                    <div class="provider-feature">
+                                        <i class="fas fa-apple-alt"></i>
+                                        <span>Protein</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Loyalty Program Section -->
+    <section id="loyalty-program" class="loyalty-program-section">
+        <div class="container loyalty-program-container">
+            <div class="text-center">
+                <h2 class="display-6 fw-bold">MealMate Loyalty Program</h2>
+                <p class="lead text-muted">Collect stamps, unlock rewards, and enjoy free meals!</p>
+            </div>
+
+            <div class="loyalty-card-grid">
+                <div class="loyalty-card">
+                    <i class="fas fa-utensils loyalty-card-icon"></i>
+                    <h4>1st Meal</h4>
+                    <span class="loyalty-card-stamp"><i class="fas fa-stamp"></i></span>
+                </div>
+                <div class="loyalty-card">
+                    <i class="fas fa-pizza-slice loyalty-card-icon"></i>
+                    <h4>2nd Meal</h4>
+                    <span class="loyalty-card-stamp"><i class="fas fa-stamp"></i></span>
+                </div>
+                <div class="loyalty-card">
+                    <i class="fas fa-bread-slice loyalty-card-icon"></i>
+                    <h4>3rd Meal</h4>
+                    <span class="loyalty-card-stamp"><i class="fas fa-stamp"></i></span>
+                </div>
+                <div class="loyalty-card">
+                    <i class="fas fa-hamburger loyalty-card-icon"></i>
+                    <h4>4th Meal</h4>
+                    <span class="loyalty-card-stamp"><i class="fas fa-stamp"></i></span>
+                </div>
+                <div class="loyalty-card">
+                    <i class="fas fa-check-circle loyalty-card-icon"></i>
+                    <h4>5th Meal</h4>
+                    <span class="loyalty-card-stamp"><i class="fas fa-stamp"></i></span>
+                </div>
+                <div class="loyalty-card current">
+                    <i class="fas fa-gift loyalty-card-icon"></i>
+                    <h4>6th Meal FREE!</h4>
+                </div>
+            </div>
+
+            <div class="loyalty-program-details">
+                <p class="text-muted">
+                    <strong>How it works:</strong> Collect a stamp for each meal you order. 
+                    After your 6th meal, enjoy a completely FREE meal as our way of saying thank you!
+                </p>
+                <a href="loyalitycard.jpg" class="loyalty-download-btn" download>
+                    <i class="fas fa-download"></i> Download Loyalty Card
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <h2 class="how-it-works-title">How MealMate Works</h2>
+            <div class="how-it-works-steps">
+                <div class="how-it-works-step">
+                    <span class="how-it-works-step-number">1</span>
+                    <div class="how-it-works-step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="how-it-works-step-title">Browse Providers</h3>
+                    <p class="how-it-works-step-description">
+                        Explore a diverse range of local meal providers. Filter by cuisine, diet, and preferences.
+                    </p>
+                </div>
+                <div class="how-it-works-step">
+                    <span class="how-it-works-step-number">2</span>
+                    <div class="how-it-works-step-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="how-it-works-step-title">Select Your Meals</h3>
+                    <p class="how-it-works-step-description">
+                        Choose from a variety of delicious, nutritionally balanced meals that suit your taste and diet.
+                    </p>
+                </div>
+                <div class="how-it-works-step">
+                    <span class="how-it-works-step-number">3</span>
+                    <div class="how-it-works-step-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="how-it-works-step-title">Quick Delivery</h3>
+                    <p class="how-it-works-step-description">
+                        Enjoy fresh, hot meals delivered right to your doorstep at your preferred time.
+                    </p>
+                </div>
+                <div class="how-it-works-step">
+                    <span class="how-it-works-step-number">4</span>
+                    <div class="how-it-works-step-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <h3 class="how-it-works-step-title">Enjoy & Repeat</h3>
+                    <p class="how-it-works-step-description">
+                        Savor your meals, earn loyalty points, and easily reorder your favorites.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Combined Culinary Journey Section -->
+    <section id="culinary-journey" class="culinary-journey-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 journey-form-container">
+                    <div class="journey-form-progress">
+                        <div class="progress-step active">1</div>
+                        <div class="progress-step">2</div>
+                        <div class="progress-step">3</div>
+                        <div class="progress-step">4</div>
+                        <div class="progress-step">5</div>
+                    </div><script src="script.js"></script>
+
+                    <form id="culinaryJourneyForm">
+                        <!-- Step 1: Personal Details -->
+                        <div class="journey-step" id="personalDetailsStep">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-user journey-step-icon"></i>
+                                <h4>Personal Details</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="emailAddress" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Meal Provider Selection -->
+                        <div class="journey-step" id="providerSelectionStep" style="display:none;">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-utensils journey-step-icon"></i>
+                                <h4>Choose Your Meal Provider</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="healthyBites" value="HealthyBites">
+                                        <label class="form-check-label" for="healthyBites">Hotel Gayatri</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="nutriChef" value="NutriChef">
+                                        <label class="form-check-label" for="nutriChef">Kayasari Lunchbox</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Kabita's Kitchen</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Homely Khana</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Lunch Square</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Hashtag Thali</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">DH Cloud Kitchen</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Happy Eats</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">MAA'S Magic Meal</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Moom's Kitchen</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Matrix Kitchen</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">SR Tiffin Service</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Tray Trap Food</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">FreshBox Online</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mealProvider" id="fitMeal" value="FitMeal">
+                                        <label class="form-check-label" for="fitMeal">Enjoe Food</label>
+                                    </div>
+                                </div>
+                                
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Subscription Plan -->
+                        <div class="journey-step" id="subscriptionStep" style="display:none;">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-calendar-alt journey-step-icon"></i>
+                                <h4>Select Subscription Plan</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="subscriptionPlan" id="weeklyPlan" value="Weekly">
+                                        <label class="form-check-label" for="weeklyPlan">Weekly Plan</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="subscriptionPlan" id="monthlyPlan" value="Monthly">
+                                        <label class="form-check-label" for="monthlyPlan">Monthly Plan</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="subscriptionPlan" id="fifteenDayPlan" value="15-Day">
+                                        <label class="form-check-label" for="fifteenDayPlan">15-Day Plan</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Delivery Details -->
+                        <div class="journey-step" id="deliveryDetailsStep" style="display:none;">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-map-marker-alt journey-step-icon"></i>
+                                <h4>Delivery Details</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Full Delivery Address</label>
+                                    <textarea class="form-control" id="deliveryAddress" rows="3" required></textarea>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Postal Code</label>
+                                    <input type="text" class="form-control" id="postalCode" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Special Delivery Instructions</label>
+                                    <textarea class="form-control" id="specialInstructions" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Payment Options -->
+                        <div class="journey-step" id="paymentStep" style="display:none;">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-credit-card journey-step-icon"></i>
+                                <h4>Payment Instructions</h4>
+                            </div>
+                            <div class="payment-instructions">
+                                <div class="alert alert-info">
+                                    <h5><i class="fas fa-qrcode"></i> Direct Payment Instructions</h5>
+                                    <p>Please complete your payment using any UPI payment app:</p>
+                                    <ul>
+                                        <li>UPI ID: <strong>7609952193@ybl</strong></li>
+                                        <li>Scan QR Code in your payment app</li>
+                                        <li>Verify amount before completing transaction</li>
+                                    </ul>
+                                </div>
+                                <div class="payment-method-selection">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="payment-app-icon">
+                                                <img src="phonepay.png" alt="PhonePay" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="payment-app-icon">
+                                                <img src="googlepay.png" alt="Google Pay" class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <div class="payment-app-icon">
+                                                <img src="paytm.png" alt="Paytm" class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" id="paymentConfirmation" required>
+                                    <label class="form-check-label" for="paymentConfirmation">
+                                        I confirm that I will complete the payment to 7609952193@ybl
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <button type="button" id="prevStep" class="btn btn-secondary" style="display:none;">Previous</button>
+                            <button type="button" id="nextStep" class="btn btn-primary">Next</button>
+                        </div>
+
+                        <!-- WhatsApp Submit Button -->
+                        <div class="text-center mt-4" id="whatsappSubmitContainer" style="display:none;">
+                            <button type="submit" class="whatsapp-submit-btn w-100">
+                                <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews Section -->
+    <section id="customer-reviews" class="review-section">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="user1-avatar.jpg" alt="Customer Avatar" class="user-avatar">
+                            <div>
+                                <div class="user-name">Sarah Johnson</div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Absolutely love the variety and freshness of meals. Perfect for my busy lifestyle!"</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="user2-avatar.jpg" alt="Customer Avatar" class="user-avatar">
+                            <div>
+                                <div class="user-name">Mike Rodriguez</div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Healthy, delicious, and convenient. MealMate has transformed my eating habits!"</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="review-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="user3-avatar.jpg" alt="Customer Avatar" class="user-avatar">
+                            <div>
+                                <div class="user-name">Emily Chen</div>
+                                <div class="review-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Great vegetarian options and the portion sizes are just right. Highly recommend!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="about-us-section">
+        <div class="container">
+            <div class="about-us-content">
+                <div class="about-us-text">
+                    <h2 class="about-us-title">Our Culinary Journey</h2>
+                    <p class="about-us-description">
+                        MealMate was born from a passion for connecting food lovers with exceptional local chefs. 
+                        Our mission is to transform everyday meals into extraordinary culinary experiences, 
+                        supporting local talent and bringing fresh, delicious meals directly to your table.
+                    </p>
+
+                    <div class="team-values">
+                        <div class="value-item">
+                            <i class="fas fa-heart value-icon"></i>
+                            <h4 class="value-title">Passion</h4>
+                            <p class="value-description">We love food and the stories behind every dish.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-leaf value-icon"></i>
+                            <h4 class="value-title">Quality</h4>
+                            <p class="value-description">Fresh, locally sourced ingredients every time.</p>
+                        </div>
+                        <div class="value-item">
+                            <i class="fas fa-users value-icon"></i>
+                            <h4 class="value-title">Community</h4>
+                            <p class="value-description">Supporting local chefs and food artisans.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-us-image-container">
+                    <img src="about-us-team.jpg" alt="MealMate Team" class="about-us-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 class="contact-title">Get in Touch</h2>
+                    <p class="contact-description">
+                        Have questions, suggestions, or just want to say hello? 
+                        We'd love to hear from you! Reach out to our friendly team 
+                        and we'll get back to you as soon as possible.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt contact-detail-icon"></i>
+                            <span>ITER LANE 6 Jagamara Bhubaneswar</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-phone contact-detail-icon"></i>
+                            <span>+91 7609952193  +91 8847822051</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope contact-detail-icon"></i>
+                            <span>support@mealmate.com</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="contact-form-group">
+                        <input type="text" class="contact-form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <input type="email" class="contact-form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <input type="tel" class="contact-form-control" placeholder="Your Phone Number">
+                    </div>
+                    <div class="contact-form-group">
+                        <textarea class="contact-form-control" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="contact-form-submit">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sexy Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    
+                    <p class="footer-brand-description">
+                        MealMate connects you with local chefs, delivering fresh, delicious meals right to your doorstep.
+                    </p>
+                    <div class="footer-social-links">
+                        <a href="#" class="footer-social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4 class="footer-links-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#meal-providers">Providers</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4 class="footer-links-title">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4 class="footer-links-title">Contact Us</h4>
+                    <div class="footer-contact-info">
+                        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+                        <span>ITER Lane 6 Jagamara Bhubaneswar</span>
+                    </div>
+                    <div class="footer-contact-info">
+                        <i class="fas fa-phone footer-contact-icon"></i>
+                        <span>+91 7609 952 193  +91 8847822051</span>
+                    </div>
+                    <div class="footer-contact-info">
+                        <i class="fas fa-envelope footer-contact-icon"></i>
+                        <span>support@mealmate.com</span>
+                    </div>
+
+                    <div class="footer-newsletter">
+                        <h4 class="footer-links-title">Stay Updated</h4>
+                        <input type="email" placeholder="Enter your email" class="footer-newsletter-input">
+                        <button class="footer-newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2025 MealMate. All Rights Reserved. Crafted with &hearts; in India.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Debug: Check if Bootstrap is loaded
+            if (typeof bootstrap === 'undefined') {
+                console.error('Bootstrap JS is not loaded. Modal functionality will be impaired.');
+                return;
+            }
+
+            // Centralized provider details
+            const providerDetails = {
+                healthybites: {
+                    name: 'Hotel Gayatri',
+                    fullImage: '1.png',
+                    description: 'Crafting nutritious meals that balance flavor and wellness.',
+                    plans: [
+                        { name: 'Weekly Plan', price: '₹1000', details: 'Perfect for individuals' },
+                        { name: 'Monthly Plan', price: '₹3500', details: 'Best value for regular eaters' },
+                        { name: '15-Day Plan', price: '₹1999', details: 'Flexible mid-term option' }
+                    ],
+                    vegMenu: {
+                        url: 'healthybites-veg-menu.pdf',
+                        description: 'Plant-based nutritional meals'
+                    },
+                    nonVegMenu: {
+                        url: 'healthybites-non-veg-menu.pdf',
+                        description: 'Protein-rich balanced meals'
+                    }
+                },
+                // Include other providers here...
+                enjoefood: {
+                    name: 'Enjoe Food',
+                    fullImage: '15.png',
+                    description: 'Innovative culinary experiences that bring joy to every meal.',
+                    plans: [
+                        { name: 'Weekly Plan', price: '₹549', details: 'Perfect for individuals' },
+                        { name: 'Monthly Plan', price: '₹1999', details: 'Best value for regular eaters' },
+                        { name: '15-Day Plan', price: '₹1099', details: 'Flexible mid-term option' }
+                    ],
+                    vegMenu: {
+                        url: 'enjoefood-veg-menu.pdf',
+                        description: 'Creative vegetarian delights'
+                    },
+                    nonVegMenu: {
+                        url: 'enjoefood-non-veg-menu.pdf',
+                        description: 'Exciting non-vegetarian selections'
+                    }
+                }
+                
+            };
+
+            // Enhanced modal generation function
+            function createProviderModal(provider) {
+                const details = providerDetails[provider];
+
+                if (!details) {
+                    console.error(`Provider details not found for: ${provider}`);
+                    return null;
+                }
+
+                const modalHtml = `
+                    <div class="modal fade" id="providerModal" tabindex="-1" aria-labelledby="providerModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="providerModalLabel">${details.name}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-provider-details">
+                                        <div class="modal-provider-image">
+                                            <img src="${details.fullImage}" alt="${details.name}" class="img-fluid">
+                                        </div>
+                                        <div class="modal-provider-content">
+                                            <div class="modal-provider-header">
+                                                <h2>${details.name}</h2>
+                                                <p>${details.description}</p>
+                                            </div>
+
+                                            <div class="modal-subscription-plans">
+                                                ${details.plans.map(plan => `
+                                                    <div class="subscription-plan-card">
+                                                        <h4>${plan.name}</h4>
+                                                        <div class="price">${plan.price}</div>
+                                                        <p>${plan.details}</p>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+
+                                            <div class="modal-menu-options">
+                                                <div class="menu-option-card">
+                                                    <i class="fas fa-leaf"></i>
+                                                    <h4>Vegetarian Menu</h4>
+                                                    <p>${details.vegMenu.description}</p>
+                                                    <a href="${details.vegMenu.url}" class="btn btn-outline-primary" download>
+                                                        Download Veg Menu
+                                                    </a>
+                                                </div>
+                                                <div class="menu-option-card">
+                                                    <i class="fas fa-drumstick-bite"></i>
+                                                    <h4>Non-Vegetarian Menu</h4>
+                                                    <p>${details.nonVegMenu.description}</p>
+                                                    <a href="${details.nonVegMenu.url}" class="btn btn-outline-danger" download>
+                                                        Download Non-Veg Menu
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                return modalHtml;
+            }
+
+            // Event delegation for provider cards
+            document.querySelector('.meal-providers-section').addEventListener('click', function(event) {
+                const providerCard = event.target.closest('.provider-card');
+                
+                if (providerCard) {
+                    const provider = providerCard.getAttribute('data-provider');
+                    
+                    // Remove any existing modal
+                    const existingModal = document.getElementById('providerModal');
+                    if (existingModal) {
+                        existingModal.remove();
+                    }
+
+                    // Create modal HTML
+                    const modalHtml = createProviderModal(provider);
+                    
+                    if (modalHtml) {
+                        // Create and append modal to body
+                        const modalContainer = document.createElement('div');
+                        modalContainer.innerHTML = modalHtml;
+                        document.body.appendChild(modalContainer.firstElementChild);
+
+                        // Show the modal
+                        const modalElement = document.getElementById('providerModal');
+                        const modal = new bootstrap.Modal(modalElement);
+                        modal.show();
+
+                        // Clean up modal after closing
+                        modalElement.addEventListener('hidden.bs.modal', function () {
+                            modalElement.remove();
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
